@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agendar Cita - Macropay</title>
+    <style>
+        :root {
+            --primary: #FF6600; /* Naranja Macropay */
+            --primary-dark: #e05a00;
+            --whatsapp: #25D366;
+            --whatsapp-dark: #1ebe57;
+            --email: #212529;
+            --bg: #f8f9fa;
+            --card: #ffffff;
+            --text: #212529;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            background: var(--card);
+            width: 100%;
+            max-width: 480px;
+            padding: 30px 25px;
+            border-radius: 16px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+            border-top: 5px solid var(--primary);
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        .header h1 {
+            color: var(--primary);
+            font-size: 1.6rem;
+            margin-bottom: 5px;
+            font-weight: 700;
+        }
+
+        .header p {
+            color: #6c757d;
+            font-size: 0.9rem;
+        }
+
+        .form-group {
+            margin-bottom: 16px;
+        }
+
+        label {
+            display: block;
+            font-weight: 600;
+            font-size: 0.85rem;
+            margin-bottom: 6px;
+            color: #495057;
+        }
+
+        input, select, textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1.5px solid #ced4da;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.2s;
+            background-color: #f8f9fa;
+        }
+
+        input:focus, select:focus, textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+            background-color: #ffffff;
+        }
+
+        .row {
+            display: flex;
+            gap: 12px;
+        }
+
+        .row .form-group {
+            flex: 1;
+        }
+
+        .btn-group {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-top: 22px;
+        }
+
+        button {
+            width: 100%;
+            padding: 14px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 8px;
+            transition: transform 0.1s, opacity 0.2s;
+        }
+
+        button:active {
+            transform: scale(0.98);
+        }
+
+        .btn-whatsapp {
+            background-color: var(--whatsapp);
+            color: white;
+        }
+
+        .btn-whatsapp:hover {
+            background-color: var(--whatsapp-dark);
+        }
+
+        .btn-email {
+            background-color: var(--email);
+            color: white;
+        }
+
+        .btn-email:hover {
+            opacity: 0.9;
+        }
+
+        @media (max-width: 400px) {
+            .row {
+                flex-direction: column;
+                gap: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="header">
+        <h1>MACROPAY</h1>
+        <p>Agenda tu cita o servicio en sucursal</p>
+    </div>
+
+    <!-- El atributo action usa FormSubmit para recibir correos sin servidor -->
+    <form id="citaForm" action="https://formsubmit.co/TU_CORREO@GMAIL.COM" method="POST">
+        <!-- Configuraciones ocultas para FormSubmit -->
+        <input type="hidden" name="_subject" value="Nueva Cita Web - Macropay">
+        <input type="hidden" name="_captcha" value="false">
+
+        <div class="form-group">
+            <label for="sucursal">Selecciona la Sucursal *</label>
+            <select id="sucursal" name="Sucursal" required>
+                <option value="" disabled selected>Elige una sucursal...</option>
+                <option value="Mina">Mina</option>
+                <option value="Trujano">Trujano</option>
+                <option value="Macroplaza">Macroplaza</option>
+                <option value="Aldama">Aldama</option>
+                <option value="Tlacolula">Tlacolula</option>
+                <option value="Tlacolula Portales">Tlacolula Portales</option>
+                <option value="Amapolas">Amapolas</option>
+                <option value="Victoria">Victoria</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="nombre">Nombre completo *</label>
+            <input type="text" id="nombre" name="Nombre" placeholder="Ej. Ana Pérez" required>
+        </div>
+
+        <div class="form-group">
+            <label for="telefono">Teléfono de contacto *</label>
+            <input type="tel" id="telefono" name="Telefono" placeholder="Ej. 951 123 4567" required>
+        </div>
+
+        <div class="form-group">
+            <label for="servicio">Trámite o Motivo de la Cita *</label>
+            <select id="servicio" name="Servicio" required>
+                <option value="" disabled selected>Selecciona una opción...</option>
+                <option value="Compra de equipo / Celulares">Compra de equipo / Celulares</option>
+                <option value="Crédito Macropay">Solicitud o pago de Crédito</option>
+                <option value="Soporte / Garantías">Soporte técnico o Garantías</option>
+                <option value="Otro servicio">Otro trámite</option>
+            </select>
+        </div>
+
+        <div class="row">
+            <div class="form-group">
+                <label for="fecha">Fecha de cita *</label>
+                <input type="date" id="fecha" name="Fecha" required>
+            </div>
+            <div class="form-group">
+                <label for="hora">Horario *</label>
+                <select id="hora" name="Horario" required>
+                    <option value="10:00 AM">10:00 AM</option>
+                    <option value="12:00 PM">12:00 PM</option>
+                    <option value="02:00 PM">02:00 PM</option>
+                    <option value="04:00 PM">04:00 PM</option>
+                    <option value="06:00 PM">06:00 PM</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="detalles">Comentarios adicionales (Opcional)</label>
+            <textarea id="detalles" name="Detalles" rows="2" placeholder="Modelo de teléfono o detalles..."></textarea>
+        </div>
+
+        <div class="btn-group">
+            <button type="button" class="btn-whatsapp" onclick="enviarWhatsApp()">
+                📲 Agendar por WhatsApp
+            </button>
+            <button type="submit" class="btn-email">
+                ✉️ Enviar por Correo Electrónico
+            </button>
+        </div>
+    </form>
+</div>
+
+<script>
+    // Bloquear fechas pasadas en el calendario
+    const hoy = new Date().toISOString().split('T')[0];
+    document.getElementById('fecha').setAttribute('min', hoy);
+
+    function enviarWhatsApp() {
+        const form = document.getElementById('citaForm');
+        
+        // Validar que los campos obligatorios estén llenos antes de abrir WhatsApp
+        if (!form.checkValidity()) {
+            form.reportValidity();
+            return;
+        }
+
+        // REEMPLAZA ESTE NÚMERO CON EL TUYO (Código de país + número, sin signos +)
+        const miTelefono = "5219510000000"; 
+
+        const sucursal = document.getElementById('sucursal').value;
+        const nombre = document.getElementById('nombre').value;
+        const telefono = document.getElementById('telefono').value;
+        const servicio = document.getElementById('servicio').value;
+        const fecha = document.getElementById('fecha').value;
+        const hora = document.getElementById('hora').value;
+        const detalles = document.getElementById('detalles').value || "Ninguno";
+
+        const mensaje = `*NUEVA CITA - MACROPAY*%0A%0A` +
+                        `🏢 *Sucursal:* ${encodeURIComponent(sucursal)}%0A` +
+                        `👤 *Cliente:* ${encodeURIComponent(nombre)}%0A` +
+                        `📞 *Tel:* ${encodeURIComponent(telefono)}%0A` +
+                        `📌 *Trámite:* ${encodeURIComponent(servicio)}%0A` +
+                        `📅 *Fecha:* ${encodeURIComponent(fecha)}%0A` +
+                        `⏰ *Hora:* ${encodeURIComponent(hora)}%0A` +
+                        `📝 *Notas:* ${encodeURIComponent(detalles)}`;
+
+        const url = `https://wa.me/${miTelefono}?text=${mensaje}`;
+        window.open(url, '_blank');
+    }
+</script>
+
+</body>
+</html>
