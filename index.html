@@ -6,8 +6,8 @@
     <title>Agendar Cita - Macropay</title>
     <style>
         :root {
-            --primary: #FF6600; /* Naranja Macropay */
-            --primary-dark: #e05a00;
+            --macropay-blue: #0046BE; /* Azul oficial de MACRO */
+            --macropay-yellow: #FFCC00; /* Amarillo oficial de PAY */
             --whatsapp: #25D366;
             --whatsapp-dark: #1ebe57;
             --email: #212529;
@@ -40,7 +40,7 @@
             padding: 30px 25px;
             border-radius: 16px;
             box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
-            border-top: 5px solid var(--primary);
+            border-top: 5px solid var(--macropay-blue);
         }
 
         .header {
@@ -49,15 +49,27 @@
         }
 
         .header h1 {
-            color: var(--primary);
-            font-size: 1.6rem;
+            font-size: 1.8rem;
             margin-bottom: 5px;
-            font-weight: 700;
+            font-weight: 800;
+            letter-spacing: 0.5px;
+        }
+
+        .text-macro {
+            color: var(--macropay-blue);
+        }
+
+        .text-pay {
+            color: #d9ab00; /* Tono de amarillo con buen contraste para lectura */
+            background-color: #212529; /* Fondo oscuro opcional para resaltar el amarillo si es necesario, o usa texto directo */
+            padding: 0 4px;
+            border-radius: 4px;
         }
 
         .header p {
             color: #6c757d;
             font-size: 0.9rem;
+            margin-top: 5px;
         }
 
         .form-group {
@@ -84,7 +96,7 @@
 
         input:focus, select:focus, textarea:focus {
             outline: none;
-            border-color: var(--primary);
+            border-color: var(--macropay-blue);
             background-color: #ffffff;
         }
 
@@ -153,12 +165,12 @@
 
 <div class="container">
     <div class="header">
-        <h1>MACROPAY</h1>
+        <h1><span class="text-macro">MACRO</span><span class="text-pay">PAY</span></h1>
         <p>Agenda tu cita o servicio en sucursal</p>
     </div>
 
-    <!-- El atributo action usa FormSubmit para recibir correos sin servidor -->
-    <form id="citaForm" action="https://formsubmit.co/TU_CORREO@GMAIL.COM" method="POST">
+    <!-- Envío de correos configurado al correo de Martha -->
+    <form id="citaForm" action="https://formsubmit.co/martha.toxqui@macropay.mx" method="POST">
         <!-- Configuraciones ocultas para FormSubmit -->
         <input type="hidden" name="_subject" value="Nueva Cita Web - Macropay">
         <input type="hidden" name="_captcha" value="false">
@@ -235,41 +247,4 @@
 <script>
     // Bloquear fechas pasadas en el calendario
     const hoy = new Date().toISOString().split('T')[0];
-    document.getElementById('fecha').setAttribute('min', hoy);
-
-    function enviarWhatsApp() {
-        const form = document.getElementById('citaForm');
-        
-        // Validar que los campos obligatorios estén llenos antes de abrir WhatsApp
-        if (!form.checkValidity()) {
-            form.reportValidity();
-            return;
-        }
-
-        // REEMPLAZA ESTE NÚMERO CON EL TUYO (Código de país + número, sin signos +)
-        const miTelefono = "5219510000000"; 
-
-        const sucursal = document.getElementById('sucursal').value;
-        const nombre = document.getElementById('nombre').value;
-        const telefono = document.getElementById('telefono').value;
-        const servicio = document.getElementById('servicio').value;
-        const fecha = document.getElementById('fecha').value;
-        const hora = document.getElementById('hora').value;
-        const detalles = document.getElementById('detalles').value || "Ninguno";
-
-        const mensaje = `*NUEVA CITA - MACROPAY*%0A%0A` +
-                        `🏢 *Sucursal:* ${encodeURIComponent(sucursal)}%0A` +
-                        `👤 *Cliente:* ${encodeURIComponent(nombre)}%0A` +
-                        `📞 *Tel:* ${encodeURIComponent(telefono)}%0A` +
-                        `📌 *Trámite:* ${encodeURIComponent(servicio)}%0A` +
-                        `📅 *Fecha:* ${encodeURIComponent(fecha)}%0A` +
-                        `⏰ *Hora:* ${encodeURIComponent(hora)}%0A` +
-                        `📝 *Notas:* ${encodeURIComponent(detalles)}`;
-
-        const url = `https://wa.me/${miTelefono}?text=${mensaje}`;
-        window.open(url, '_blank');
-    }
-</script>
-
-</body>
-</html>
+    document.getElementById('fecha').setAttribute('min', hoy
